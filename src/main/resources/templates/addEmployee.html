@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            width: 150%;
+            padding: 20px;
+            margin-left: -5%;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .form-check-input {
+            margin-right: 10px;
+        }
+        .btn-primary {
+            width: 20%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .card-body {
+            background-color: rgb(186, 189, 182);
+            padding: 20px;
+        }
+        .row {
+            margin-bottom: 20px;
+        }
+        .card {
+            width: 200%;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="text-center">Employee Registration Form</h4>
+                        <hr>
+
+                        <form action="/save-employee" method="POST" onsubmit="submitForm(event)" th:object="${employee}">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="empName" class="form-label">Employee Name</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" th:field="*{name}" id="empName" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="email" class="form-label">Email</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="email" class="form-control" th:field="*{email}" id="email" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="gender" class="form-label">Gender</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" th:field="*{gender}" value="M" required>Male
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" th:field="*{gender}" value="F" required>Female
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="DateofBirth" class="form-label">Date of Birth</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="date" class="form-control" th:field="*{dateofbirth}" id="DateofBirth" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="DateofJoin" class="form-label">Date of Join</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="date" class="form-control" th:field="*{dateofjoin}" id="DateofJoin" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="mobile" class="form-label">Mobile Number</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="tel" class="form-control" th:field="*{mobileNumber}" id="mobile" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="password" class="form-label">Password</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="tel" class="form-control" th:field="*{password}" id="password" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="designation" class="form-label">Designation</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" th:field="*{designation}" id="designation" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="salary" class="form-label">Salary</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" th:field="*{salary}" id="salary" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="currentaddress" class="form-label">Current Address</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" th:field="*{currentaddress}" id="currentaddress" rows="3" required maxlength="1000" minlength="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="role" class="form-label">Role</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-select" name="role" th:field="*{role}" id="role">
+                                        <option value="USER">User</option>
+                                        <option value="ADMIN">Admin</option>
+                                    </select>
+                                    <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            var formData = new FormData(document.getElementById('employeeForm'));
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/save-employee", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    loadContent('employeeReport');
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

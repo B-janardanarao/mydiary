@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, rgb(211, 215, 207), rgb(211, 215, 207));
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .sidebar a:hover {
+            background-color: #575d63;
+            color: #fff;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 10px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .card h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #777;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        form input, form textarea, form button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2 style="color:white; text-align:center;">DashBoard </h2>
+        <a href="javascript:void(0)" onclick="loadContent('leave-record')">Leave Report</a>
+        <a href="javascript:void(0)" onclick="loadContent('leave-form')">Apply Leave</a>
+        <a href="/login">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div id="content" class="container">
+        </div>
+    </div>
+
+    <script>
+        function loadContent(page) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/userDashboard/" + page, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('content').innerHTML = xhr.responseText;
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    document.getElementById('content').innerHTML = `
+                        <div class="card">
+                            <h2>Error Loading Content</h2>
+                            <p>Unable to load the requested section. Please try again later.</p>
+                        </div>`;
+                }
+            };
+            xhr.send();
+        }
+
+        window.onload = function () {
+            loadContent('leave-record');
+        };
+    </script>
+</body>
+</html>

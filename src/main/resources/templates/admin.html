@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, rgb(211, 215, 207), rgb(211, 215, 207));
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: rgb(186, 189, 182);
+            display: block;
+            margin: 10px 0;
+        }
+
+        .sidebar a:hover {
+            background-color: #575d63;
+            color: #fff;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            margin-top: 50px;
+            padding: 20px;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding-bottom: 20px;
+        }
+
+        .card {
+            background-color: rgb(233, 185, 110);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .card h2 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2 style="color:white; text-align:center;">Admin Panel</h2>
+        <a href="javascript:void(0)" onclick="loadContent('employeeReport')">Employee Report</a>
+        <a href="javascript:void(0)" onclick="loadContent('addEmployee')">Add Employee</a>
+        <a href="javascript:void(0)" onclick="loadContent('leaveReport')">Leave Report</a>
+        <a href="/login">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div id="content" class="container"></div>
+    </div>
+
+    <script>
+        function loadContent(page) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/admin/" + page, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('content').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        window.onload = function() {
+            loadContent('employeeReport');
+        };
+    </script>
+</body>
+</html>
